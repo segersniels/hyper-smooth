@@ -19,7 +19,7 @@
     "automatic"
   ],
   "scripts": {
-    "build": "tsc --watch",
+    "build": "tsc",
     "build:watch": "tsc --watch",
     "lint": "eslint '**/*.{ts,tsx}'",
     "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
