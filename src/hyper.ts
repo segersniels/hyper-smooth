@@ -1,10 +1,10 @@
 import ColorConfig from "config/color";
-import DefaultConfig from "config/default";
 import Palette from "enums/Palette";
+import * as ConfigHelper from "helpers/config";
 import Colors from "types/Colors";
-import Config from "types/Config";
+import HyperConfig from "types/HyperConfig";
 
-const transformPaletteToConfig = (palette: Colors, config: Config) => {
+const transformPaletteToConfig = (palette: Colors) => {
   return {
     foregroundColor: palette.Text,
     backgroundColor: palette.Base,
@@ -44,7 +44,6 @@ const transformPaletteToConfig = (palette: Colors, config: Config) => {
       .tabs_list {
         background: ${palette.Overlay};
         margin-left: 0;
-        padding-left: ${config.hideControls ? "0" : "76px"};
         max-height: 38px;
       }
 
@@ -104,10 +103,6 @@ const transformPaletteToConfig = (palette: Colors, config: Config) => {
         background-color: ${palette.Overlay} !important;
       }
 
-      .tabs_title > span {
-        display: ${config.hideTabTitle ? "none" : "block"};
-      }
-
       @keyframes fade-out {
         0% {
           opacity: 1;
@@ -122,63 +117,46 @@ const transformPaletteToConfig = (palette: Colors, config: Config) => {
           transform:translate(9999px);
         }
       }
-
-      .notifications_view {
-        animation: ${
-          config.hideNotifications ? "fade-out 5s ease-out both" : "none"
-        };
-      }
     `,
   };
 };
 
-export const decorateConfig = (config: any) => {
-  const updatedConfig: Config = {
-    ...DefaultConfig,
-    ...config.updatedConfig,
-    appearance: {
-      ...DefaultConfig.appearance,
-      ...(config.updatedConfig ? config.updatedConfig.appearance : {}),
-    },
-  };
-
-  let palette = ColorConfig[Palette.Dark];
-  const selectedPalette = updatedConfig.palette;
-
-  if (Object.values(Palette).includes(selectedPalette)) {
-    palette = ColorConfig[selectedPalette];
-  }
+export const decorateConfig = (hyperConfig: HyperConfig) => {
+  const config = ConfigHelper.get(hyperConfig);
 
   return {
-    ...config,
-    ...transformPaletteToConfig(palette, updatedConfig),
+    ...hyperConfig,
+    ...transformPaletteToConfig(ColorConfig[config.smooth.variant]),
   };
 };
 
-export const reduceUI = (state: any, action: any) => {
+interface Action {
+  type: string;
+  isDarkMode: boolean;
+  config: HyperConfig;
+}
+
+export const reduceUI = (state: any, action: Action) => {
   if (
     action.type === "SMOOTH_THEME_CHANGE" ||
     action.type === "CONFIG_RELOAD"
   ) {
-    const { config } = action;
-
-    const updatedConfig: Config = {
-      ...DefaultConfig,
-      ...config.updatedConfig,
-      appearance: {
-        ...DefaultConfig.appearance,
-        ...(config.updatedConfig?.appearance ?? {}),
-      },
-    };
-
+    const config = ConfigHelper.get(action.config);
+    let palette = ColorConfig[config.smooth.variant];
     const isDarkMode =
       action.type === "CONFIG_RELOAD" ? state.isDarkMode : action.isDarkMode;
 
-    const palette = isDarkMode
-      ? ColorConfig[updatedConfig.appearance.dark]
-      : ColorConfig[updatedConfig.appearance.light];
+    // Check if we should apply automatic theming
+    if (
+      typeof isDarkMode !== "undefined" &&
+      !config.smooth.disableAutomaticTheming
+    ) {
+      palette = isDarkMode
+        ? ColorConfig[Palette.Dark]
+        : ColorConfig[Palette.Light];
+    }
 
-    const theme = transformPaletteToConfig(palette, updatedConfig);
+    const theme = transformPaletteToConfig(palette);
 
     return state
       .set("backgroundColor", theme.backgroundColor)
@@ -196,7 +174,13 @@ export const reduceUI = (state: any, action: any) => {
 export const decorateHyper = (Hyper: any, { React }: any) => {
   return class extends React.Component {
     componentDidMount() {
-      if (window.matchMedia("(prefers-color-scheme)").media !== "not all") {
+      const config = ConfigHelper.get((window as any).config.getConfig());
+
+      // Dispatch theme changes on color scheme changes
+      if (
+        window.matchMedia("(prefers-color-scheme)").media !== "not all" &&
+        !config.smooth?.disableAutomaticTheming
+      ) {
         const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
         (window as any).store.dispatch({

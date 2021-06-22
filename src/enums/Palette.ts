@@ -1,6 +1,6 @@
 enum Palette {
-  Light = "smooth-light",
-  Dark = "smooth-dark",
+  Light = "light",
+  Dark = "dark",
 }
 
 export default Palette;

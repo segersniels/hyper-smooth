@@ -1,37 +1,17 @@
 import ColorConfig from "config/color";
-import DefaultConfig from "config/default";
 import Palette from "enums/Palette";
-import Config from "types/Config";
+import * as ConfigHelper from "helpers/config";
 
-const useAppearance = (window: any) => {
-  let appearance = {
-    isDarkMode: true,
-    light: Palette.Light,
-    dark: Palette.Dark,
-  };
-
+const checkIfDarkMode = (window: any) => {
   if (window.matchMedia("(prefers-color-scheme)").media !== "not all") {
     const isDarkMode = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
 
-    const config = window.config.getConfig();
-    const updatedConfig: Config = {
-      ...DefaultConfig,
-      ...config.updatedConfig,
-      appearance: {
-        ...DefaultConfig.appearance,
-        ...(config.updatedConfig ? config.updatedConfig.appearance : {}),
-      },
-    };
-
-    appearance = {
-      isDarkMode,
-      ...updatedConfig.appearance,
-    };
+    return isDarkMode;
   }
 
-  return appearance;
+  return true;
 };
 
 export const decorateTabs = (Tabs: any, { React }: any) => {
@@ -45,10 +25,17 @@ export const decorateTabs = (Tabs: any, { React }: any) => {
     }
 
     componentDidMount() {
-      const { isDarkMode, light, dark } = useAppearance(window);
+      const isDarkMode = checkIfDarkMode(window);
+      const config = ConfigHelper.get((window as any).config.getConfig());
+      const palette = ColorConfig[config.smooth.variant];
 
       this.setState({
-        palette: isDarkMode ? ColorConfig[dark] : ColorConfig[light],
+        palette:
+          typeof isDarkMode === "undefined"
+            ? palette
+            : isDarkMode
+            ? ColorConfig[Palette.Dark]
+            : ColorConfig[Palette.Light],
       });
     }
 
@@ -69,10 +56,17 @@ export const decorateTab = (Tab: any, { React }: any) => {
     }
 
     componentDidMount() {
-      const { isDarkMode, light, dark } = useAppearance(window);
+      const isDarkMode = checkIfDarkMode(window);
+      const config = ConfigHelper.get((window as any).config.getConfig());
+      const palette = ColorConfig[config.smooth.variant];
 
       this.setState({
-        palette: isDarkMode ? ColorConfig[dark] : ColorConfig[light],
+        palette:
+          typeof isDarkMode === "undefined"
+            ? palette
+            : isDarkMode
+            ? ColorConfig[Palette.Dark]
+            : ColorConfig[Palette.Light],
       });
     }
 
