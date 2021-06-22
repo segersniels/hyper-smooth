@@ -10,6 +10,7 @@ on:
 jobs:
   status:
     runs-on: ubuntu-latest
+    if: "startsWith(github.event.head_commit.message, ':bookmark:')"
     steps:
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v3.x
