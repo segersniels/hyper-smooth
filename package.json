@@ -2,7 +2,14 @@
   "name": "hyper-smooth",
   "version": "1.0.0",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/segersniels/hyper-smooth.git"
+  },
   "keywords": [
     "hyper",
     "hyper-theme",
@@ -18,6 +25,11 @@
     "minimal",
     "automatic"
   ],
+  "author": "Niels Segers",
+  "bugs": {
+    "url": "https://github.com/segersniels/hyper-smooth/issues"
+  },
+  "homepage": "https://github.com/segersniels/hyper-smooth#readme",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
