@@ -1,0 +1,34 @@
+{
+  "name": "hyper-smooth",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "keywords": [
+    "hyper",
+    "hyper-theme",
+    "theme",
+    "ui",
+    "terminal",
+    "smooth",
+    "soft",
+    "pastel",
+    "light",
+    "dark",
+    "minimalist",
+    "minimal",
+    "automatic"
+  ],
+  "scripts": {
+    "build": "tsc --watch",
+    "build:watch": "tsc --watch",
+    "lint": "eslint '**/*.{ts,tsx}'",
+    "lint:fix": "eslint '**/*.{ts,tsx}' --fix",
+    "check:typescript": "tsc --noEmit --skipLibCheck --project ."
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "eslint": "^7.29.0",
+    "typescript": "^4.3.4"
+  }
+}
