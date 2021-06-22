@@ -1,8 +1,8 @@
-import Colors from "types/Colors";
-import Config from "types/Config";
-import Palette from "enums/Palette";
 import ColorConfig from "config/color";
 import DefaultConfig from "config/default";
+import Palette from "enums/Palette";
+import Colors from "types/Colors";
+import Config from "types/Config";
 
 const transformPaletteToConfig = (palette: Colors, config: Config) => {
   return {
@@ -174,7 +174,7 @@ export const reduceUI = (state: any, action: any) => {
     const isDarkMode =
       action.type === "CONFIG_RELOAD" ? state.isDarkMode : action.isDarkMode;
 
-    const palette = Boolean(isDarkMode)
+    const palette = isDarkMode
       ? ColorConfig[updatedConfig.appearance.dark]
       : ColorConfig[updatedConfig.appearance.light];
 

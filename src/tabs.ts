@@ -1,7 +1,7 @@
-import Palette from "enums/Palette";
-import Config from "types/Config";
 import ColorConfig from "config/color";
 import DefaultConfig from "config/default";
+import Palette from "enums/Palette";
+import Config from "types/Config";
 
 const useAppearance = (window: any) => {
   let appearance = {
