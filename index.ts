@@ -2,8 +2,8 @@ export {
   decorateConfig,
   decorateHyper,
   reduceUI,
-} from "./src/hyper";
+} from "hyper";
 export {
   decorateTab,
   decorateTabs,
-} from "./src/tabs";
+} from "tabs";
