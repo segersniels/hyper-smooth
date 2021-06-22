@@ -32,4 +32,4 @@ Configuration is fairly straight forward. Assume the following default config.
 }
 ```
 
-Adjusting `disableAutomaticTheming` will require a full reload.
+Adjusting `disableAutomaticTheming` may require a full reload.
