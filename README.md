@@ -2,7 +2,9 @@
 
 [![Actions](https://action-badges.now.sh/segersniels/hyper-smooth)](https://github.com/segersniels/hyper-smooth/actions)[![npm](https://img.shields.io/npm/dm/hyper-smooth.svg)](https://www.npmjs.com/package/hyper-smooth)
 
-My interpretation of a comfortable color theme to use with Hyper. This work is based on the work from the guys at [Rosé Pine](https://github.com/rose-pine/hyper) and [ng-hai](https://github.com/ng-hai/hyper-rose-pine-next) that provided a clear example of how a responsive theme can be based on the macOS color scheme.
+My interpretation of a comfortable to look at theme to use with Hyper. It automatically switches based on the active macOS color scheme.
+
+This theme is based on the work from the guys at [Rosé Pine](https://github.com/rose-pine/hyper) and [ng-hai](https://github.com/ng-hai/hyper-rose-pine-next) that provided a clear example of how a responsive theme can be based on the macOS color scheme.
 
 ![light](./resources/light.png)
 ![dark](./resources/dark.png)
