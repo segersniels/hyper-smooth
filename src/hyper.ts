@@ -47,6 +47,10 @@ const transformPaletteToConfig = (palette: Colors) => {
         max-height: 38px;
       }
 
+      .tabs_title {
+        color: ${palette.Text}
+      }
+
       .tab_text {
         height: 38px;
         display: flex;
