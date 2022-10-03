@@ -15,9 +15,9 @@ const ColorConfig: Record<Palette, Colors> = {
     Overlay: "#252525",
     Surface: "#1B1B1B",
     Base: "#383838",
-    OverlayHighlight: "rgba(110, 106, 134, .4)",
-    Highlight: "rgba(110, 106, 134, .2)",
-    InactiveHighlight: "rgba(110, 106, 134, .1)",
+    OverlayHighlight: "rgba(246, 193, 119, .4)",
+    Highlight: "rgba(246, 193, 119, .2)",
+    InactiveHighlight: "rgba(246, 193, 119, .1)",
   },
   [Palette.Light]: {
     Red: "#eb6f92",
@@ -32,9 +32,9 @@ const ColorConfig: Record<Palette, Colors> = {
     Overlay: "#f2e9de",
     Surface: "#fffaf3",
     Base: "#faf4ed",
-    OverlayHighlight: "rgba(110, 106, 134, .15)",
-    Highlight: "rgba(110, 106, 134, .08)",
-    InactiveHighlight: "rgba(110, 106, 134, .05)",
+    OverlayHighlight: "rgba(246, 193, 119, .15)",
+    Highlight: "rgba(246, 193, 119, .2)",
+    InactiveHighlight: "rgba(246, 193, 119, .1)",
   },
 };
 
