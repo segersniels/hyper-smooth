@@ -1,5 +1,6 @@
 {
   "name": "hyper-smooth",
+  "description": "My interpretation of a comfortable to look at theme to use with Hyper.",
   "version": "1.2.0",
   "main": "dist/index.js",
   "files": [
